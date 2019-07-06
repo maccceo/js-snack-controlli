@@ -2,8 +2,7 @@
 // grande Gatsby, chiedi all’utente il suo nome e comunicagli se
 // può partecipare o no alla festa.
 
-console.log('there i go');
-
+var user, found = false;
 var guest = [
 	"Liberatore Costantini",
 	"Bruno Aiolfi",
@@ -19,7 +18,16 @@ var guest = [
 ];
 
 //chiedi il nome all'utente
+user = prompt("Benvenuto, inserisca il suo nome");
 
 //controlla se è in lista
+for (var i = 0; i < guest.length; i++) {
+	if (user == guest[i]) 		found = true;
+}
 
 //comunica se può partecipare
+if (found) {
+	console.log("Può entrare");
+} else {
+	console.log("Spiacente, il nome " + user + " non è presente nella nostra lista.");
+}
