@@ -18,7 +18,7 @@ var guest = [
 ];
 
 //chiedi il nome all'utente
-user = prompt("Benvenuto, inserisca il suo nome");
+user = prompt("Benvenuto, inserisca il suo nome e cognome:");
 
 //controlla se è in lista
 for (var i = 0; i < guest.length; i++) {
