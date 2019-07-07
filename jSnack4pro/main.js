@@ -7,10 +7,9 @@
 //		-> Ha messo qualcosa?
 //		-> Nome più cognome (almeno uno spazio)
 //		-> Evitare numeri
-//		-> Lettera maiuscola automatica
-// - Nel caso il nome non sia presente, far riprovare l'utente
+//		-> Lettera maiuscola iniziale automatica
 
-var user, found = false, allClear = false, numberFound = false;
+var user, nameFound = false, allClear = false, numberFound = false;
 var guest = [
 	"Liberatore Costantini",
 	"Bruno Aiolfi",
@@ -25,16 +24,20 @@ var guest = [
 	"Demetra Selvaggio"
 ];
 
-//chiedi il nome all'utente
+
+// chiedi il nome all'utente
 user = prompt("Benvenuto, inserisca il suo nome e cognome:");
 console.log('inserito ' + user);
 
-//ri-chiedi l'input fino a quando vengono soddisfatte tutte le condizioni richieste
+
+// # # CONTROLLI # #
+
+// ri-chiedi l'input fino a quando vengono soddisfatte tutte le condizioni richieste
 while (allClear == false) {
 
-	// passo ad uno a uno i caratteri di user per cercare numeri
+	// No numeri: passo ad uno a uno i caratteri di user per cercarli
 	for (var i = 0; i < user.length; i++) {
-		//se è un numero e non è uno spazio (che viene considerato numero)
+		//s e è un numero e non è uno spazio (che viene considerato numero)
 		if ( !isNaN(user[i]) && user[i] != ' ') {
 			numberFound = true;
 		}
@@ -46,28 +49,39 @@ while (allClear == false) {
 
 	// controllo che sia stato inserito qualcosa
 	else if (!user) {
-		user = prompt("Benvenuto, inserisca il suo nome:");
+		user = prompt("Benvenuto, inserisca il suo nome e cognome:");
 	}
 
 	// controllo che sia stato inserito uno spazio (nome cognome)
+	// quando indexOf non trova (' ') restituisce l'indice -1
 	else if (user.indexOf(' ') == -1) {
-		user = prompt("Inserisca nome e cognome separati da uno spazio:");
+		user = prompt("Perfavore inserisca nome e cognome separati da uno spazio:");
 	}
 
-	// se non ci sono problemi procedi
+	// se non ci sono problemi procedi oltre
 	else {
 		allClear = true;
 	}
 }
 
-//controlla se è in lista
+
+// trasformo ogni lettera in minuscolo e lascio maiuscole solo le iniziali
+user = user.toLowerCase();
+user = user.replace(/\b\w/g, l => l.toUpperCase());
+// The regex basically matches the first letter of each word within the given string and transforms only that letter to uppercase:
+// 1) \b matches a word boundary (the beginning or ending of word);
+// 2) \w matches the following meta-character [a-zA-Z0-9].
+
+
+//controlla se il nome inserito dall'utente è in lista
 for (var i = 0; i < guest.length; i++) {
-	if (user == guest[i]) 		found = true;
+	if (user == guest[i]) 		nameFound = true;
 }
 
+
 //comunica se può partecipare
-if (found) {
-	console.log("Può entrare");
+if (nameFound) {
+	alert("Può entrare");
 } else {
-	console.log("Spiacente, il nome " + user + " non è presente nella nostra lista.");
+	alert("Spiacente, il nome " + user + " non è presente nella nostra lista. Aggiorni la pagina per provare di nuovo.");
 }
